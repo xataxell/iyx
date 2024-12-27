@@ -4551,7 +4551,7 @@ CMDs[#CMDs + 1] = {NAME = 'thawunanchored / thawua / unfreezeua', DESC = 'Thaws 
 CMDs[#CMDs + 1] = {NAME = 'removeterrain / rterrain / noterrain', DESC = 'Removes all terrain'}
 CMDs[#CMDs + 1] = {NAME = 'clearnilinstances / nonilinstances / cni', DESC = 'Removes nil instances'}
 CMDs[#CMDs + 1] = {NAME = 'destroyheight / dh [num]', DESC = 'Sets FallenPartsDestroyHeight'}
-CMDs[#CMDs + 1] = {NAME = 'fakeout', DESC = 'Tp to the void and then back (useful to kill people attached to you)'}
+CMDs[#CMDs + 1] = {NAME = 'fakeout / antibang / anti-bang /ab', DESC = 'Tp to the void and then back (useful to kill people attached to you)'}
 CMDs[#CMDs + 1] = {NAME = 'antivoid', DESC = 'Prevents you from falling into the void by launching you upwards'}
 CMDs[#CMDs + 1] = {NAME = 'unantivoid / noantivoid', DESC = 'Disables antivoid'}
 CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
@@ -6342,7 +6342,7 @@ local TeleportCheck = false
 Players.LocalPlayer.OnTeleport:Connect(function(State)
 	if KeepInfYield and (not TeleportCheck) and queueteleport then
 		TeleportCheck = true
-		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()")
+		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/xataxell/iyx/refs/heads/main/iyx.lua'))()")
 	end
 end)
 
@@ -12294,7 +12294,7 @@ addcmd('destroyheight',{'dh'},function(args, speaker)
 end)
 
 OrgDestroyHeight = workspace.FallenPartsDestroyHeight
-addcmd("fakeout", {}, function(args, speaker)
+addcmd("fakeout", {'AntiBang', 'Anti-Bang', 'ab'}, function(args, speaker)
     local root = getRoot(speaker.Character)
     local oldpos = root.CFrame
     workspace.FallenPartsDestroyHeight = 0/1/0
@@ -12347,18 +12347,6 @@ addcmd("removeads", {"adblock"}, function(args, speaker)
             end
         end)
     end
-end)
-
-addcmd("antibang", {"anti-bang", 'ab'}, function(args, speaker)
-    if speaker and speaker.Character and speaker.Character:FindFirstChild('HumanoidRootPart') then
-		local hrp = game.Players.LocalPlayer.Character['HumanoidRootPart']
-		workspace.FallenPartsDestroyHeight = -2000
-		local cf = hrp.CFrame
-		hrp.CFrame = CFrame.new(Vector3.new(0, -600, 0))
-		task.wait(.7)
-		hrp.CFrame = cf
-		workspace.FallenPartsDestroyHeight = -500
-	end
 end)
 
 local freezingua = nil
