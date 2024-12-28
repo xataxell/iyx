@@ -4579,8 +4579,8 @@ CMDs[#CMDs + 1] = {NAME = 'userid / id [player]', DESC = 'Notifies a players use
 CMDs[#CMDs + 1] = {NAME = 'copyuserid / copyid [player]', DESC = 'Copies a players user ID to your clipboard'}
 CMDs[#CMDs + 1] = {NAME = 'appearanceid / aid [player]', DESC = 'Notifies a players appearance ID'}
 CMDs[#CMDs + 1] = {NAME = 'copyappearanceid / caid [player]', DESC = 'Copies a players appearance ID to your clipboard'}
-CMDs[#CMDs + 1] = {NAME = 'bang [player] [speed]', DESC = 'owo'}
-CMDs[#CMDs + 1] = {NAME = 'unbang', DESC = 'uwu'}
+CMDs[#CMDs + 1] = {NAME = 'bang / rape [player] [speed]', DESC = 'owo'}
+CMDs[#CMDs + 1] = {NAME = 'unbang / unrape', DESC = 'uwu'}
 CMDs[#CMDs + 1] = {NAME = 'carpet [player]', DESC = 'Be someones carpet'}
 CMDs[#CMDs + 1] = {NAME = 'uncarpet', DESC = 'Undoes carpet'}
 CMDs[#CMDs + 1] = {NAME = 'friend [player]', DESC = 'Sends a friend request to certain players'}
@@ -10520,6 +10520,7 @@ end
 addcmd("bang", {"rape"}, function(args, speaker)
 	execCmd("unbang")
 	wait()
+	workspace.FallenPartsDestroyHeight = 0/1/0
 	local humanoid = speaker.Character:FindFirstChildWhichIsA("Humanoid")
 	bangAnim = Instance.new("Animation")
 	bangAnim.AnimationId = not r15(speaker) and "rbxassetid://148840371" or "rbxassetid://5918726674"
@@ -10553,6 +10554,7 @@ addcmd("unbang", {"unrape"}, function(args, speaker)
 		bang:Stop()
 		bangAnim:Destroy()
 		bangLoop:Disconnect()
+		workspace.FallenPartsDestroyHeight = OrgDestroyHeight
 	end
 end)
 
@@ -12297,7 +12299,7 @@ addcmd("fakeout", {'AntiBang', 'Anti-Bang', 'ab'}, function(args, speaker)
     local root = getRoot(speaker.Character)
     local oldpos = root.CFrame
     workspace.FallenPartsDestroyHeight = 0/1/0
-    root.CFrame = CFrame.new(Vector3.new(0, OrgDestroyHeight - 25, 0))
+    root.CFrame = CFrame.new(Vector3.new(0, OrgDestroyHeight - 10000, 0))
     wait(1)
     root.CFrame = oldpos
     workspace.FallenPartsDestroyHeight = OrgDestroyHeight
@@ -12760,7 +12762,7 @@ end)
 
 task.spawn(function()
     while task.wait() do
-        local function lerp(c1, c2, t)
+        local function lerpColor(c1, c2, t)
             return Color3.new(
                 c1.R + (c2.R - c1.R) * t,
                 c1.G + (c2.G - c1.G) * t,
@@ -12771,12 +12773,12 @@ task.spawn(function()
         local hue = (tick() % 5) / 5
         local rainbow = Color3.fromHSV(hue, 1, 1)
 
-        local currentShade1 = lerp(Color3.fromRGB(36, 36, 37), rainbow, 0.5)
-        local currentShade2 = lerp(Color3.fromRGB(46, 46, 47), rainbow, 0.5)
-        local currentShade3 = lerp(Color3.fromRGB(78, 78, 79), rainbow, 0.5)
+        local currentShade1 = lerpColor(Color3.fromRGB(36, 36, 37), rainbow, 0.5)
+        local currentShade2 = lerpColor(Color3.fromRGB(46, 46, 47), rainbow, 0.5)
+        local currentShade3 = lerpColor(Color3.fromRGB(78, 78, 79), rainbow, 0.5)
 
 		if IntroBackground then
-			IntroBackground.BackgroundColor3 = lerp(Color3.fromRGB(36, 36, 37), rainbow, 0.5)
+			IntroBackground.BackgroundColor3 = lerpColor(Color3.fromRGB(36, 36, 37), rainbow, 0.5)
 		end
 
         updateColors(currentShade1, shade1)
