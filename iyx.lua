@@ -4353,6 +4353,53 @@ function autoComplete(str,curText)
 	Cmdbar.CursorPosition = #Cmdbar.Text+1--1020
 end
 
+local localplayer = Players.LocalPlayer
+local antibang = {
+	Enabled = false,
+	IsTerminatingNigger = false,
+	BlacklistedAnimR6 = 148840371,
+	BlacklistedAnimR15 = 5918726674
+}
+
+antibang.findplayer = function()
+	local closetplayer = nil
+	local closestdistance = math.huge
+	for i,v in ipairs(Players:GetChildren()) do
+		if v and v.Character and v.Character:FindFirstChild('HumanoidRootPart') and v.Character:FindFirstChild('Humanoid') and v ~= localplayer and localplayer.Character and getRoot(localplayer.Character) then
+			root = getRoot(localplayer.Character)
+			local distance = (v.Character.HumanoidRootPart.Position - root.Position).Magnitude
+			local r15 = r15(v)
+			for i,v in v.Character.Humanoid:GetPlayingAnimationTracks() do
+				local animcheck = (r15 and v.Animation.AnimationId:match(antibang.BlacklistedAnimR15) or v.Animation.AnimationId:match(antibang.BlacklistedAnimR6))
+			end
+			if distance and distance <= closestdistance and animcheck then
+				closestplayer = v
+				closestdistance = distance
+			end
+		end
+	end
+	return closestplayer, closestdistance
+end
+
+spawn(function()
+	while task.wait(.1) do
+		if antibang.Enabled then
+			local nigga = antibang.findplayer()
+			if nigga and not antibang.IsTerminatingNigger then
+				antibang.IsTerminatingNigger = true
+				local root = getRoot(localplayer.Character)
+				local oldpos = root.CFrame
+				workspace.FallenPartsDestroyHeight = 0/1/0
+    			root.CFrame = CFrame.new(Vector3.new(0, OrgDestroyHeight - 10000, 0))
+    			wait(1)
+    			root.CFrame = oldpos
+    			workspace.FallenPartsDestroyHeight = OrgDestroyHeight
+				antibang.IsTerminatingNigger = false
+			end
+		end
+	end
+end)
+
 CMDs = {}
 CMDs[#CMDs + 1] = {NAME = 'discord / support / help', DESC = 'Invite to the Infinite Yield support server.'}
 CMDs[#CMDs + 1] = {NAME = 'console', DESC = 'Loads Roblox console'}
@@ -4552,6 +4599,7 @@ CMDs[#CMDs + 1] = {NAME = 'removeterrain / rterrain / noterrain', DESC = 'Remove
 CMDs[#CMDs + 1] = {NAME = 'clearnilinstances / nonilinstances / cni', DESC = 'Removes nil instances'}
 CMDs[#CMDs + 1] = {NAME = 'destroyheight / dh [num]', DESC = 'Sets FallenPartsDestroyHeight'}
 CMDs[#CMDs + 1] = {NAME = 'fakeout / antibang / anti-bang /ab', DESC = 'Tp to the void and then back (useful to kill people attached to you)'}
+CMDs[#CMDs + 1] = {NAME = 'toggleantibang / toggleanti-bang / toggleab', DESC = 'Tp to the void and then back (useful to kill people attached to you)'}
 CMDs[#CMDs + 1] = {NAME = 'antivoid', DESC = 'Prevents you from falling into the void by launching you upwards'}
 CMDs[#CMDs + 1] = {NAME = 'unantivoid / noantivoid', DESC = 'Disables antivoid'}
 CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
@@ -4767,6 +4815,9 @@ CMDs[#CMDs + 1] = {NAME = 'promptr6', DESC = 'Prompts the game to switch your ri
 CMDs[#CMDs + 1] = {NAME = 'promptr15', DESC = 'Prompts the game to switch your rig type to R15'}
 CMDs[#CMDs + 1] = {NAME = 'wallwalk / walkonwalls', DESC = 'Walk on walls'}
 CMDs[#CMDs + 1] = {NAME = 'removeads / adblock', DESC = 'Automatically removes ad billboards'}
+if setfpscap and type(setfpscap) == "function" then
+	CMDs[#CMDs + 1] = {NAME = 'setfpscap / fpscap / maxfps [num]', DESC = 'Sets your fps cap'}
+end
 wait()
 
 for i = 1, #CMDs do
@@ -7843,13 +7894,13 @@ addcmd('antilag',{'boostfps','lowgraphics'},function(args, speaker)
 	end)
 end)
 
-addcmd('setfpscap', {'fpscap', 'maxfps'}, function(args, speaker)
+addcmd('setfpscap', {'fpscap', 'maxfps', 'unlockfps'}, function(args, speaker)
 	if setfpscap and type(setfpscap) == "function" then
 		local num = args[1] or 1e6
 		if num == 'none' then
-			return setfpscap(1e6)
+			setfpscap(1e6)
 		elseif num > 0 then
-			return setfpscap(num)
+			setfpscap(num)
 		else
 			return notify('Invalid argument', "Please provide a number above 0 or 'none'.")
 		end
@@ -12303,6 +12354,12 @@ addcmd("fakeout", {'AntiBang', 'Anti-Bang', 'ab'}, function(args, speaker)
     wait(1)
     root.CFrame = oldpos
     workspace.FallenPartsDestroyHeight = OrgDestroyHeight
+end)
+
+addcmd("toggleantibang", {'toggleanti-bang', 'toggleab'}, function(args, speaker)
+	shit = not antibang.Enabled
+    antibang.Enabled = shit
+	notify('Anti Bang','Anti Bang has been toggled and is now ' .. shit)
 end)
 
 antivoidloop = false
