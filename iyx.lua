@@ -4381,6 +4381,7 @@ antibang.findplayer = function()
 	return closestplayer, closestdistance
 end
 
+OrgDestroyHeight = workspace.FallenPartsDestroyHeight
 spawn(function()
 	while task.wait(.1) do
 		if antibang.Enabled then
@@ -12359,7 +12360,7 @@ end)
 addcmd("toggleantibang", {'toggleanti-bang', 'toggleab'}, function(args, speaker)
 	shit = not antibang.Enabled
     antibang.Enabled = shit
-	notify('Anti Bang','Anti Bang has been toggled and is now ' .. shit)
+	notify('Anti Bang','Anti Bang has been toggled and is now ' .. tostring(shit))
 end)
 
 antivoidloop = false
