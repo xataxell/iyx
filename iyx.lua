@@ -4767,7 +4767,6 @@ CMDs[#CMDs + 1] = {NAME = 'promptr6', DESC = 'Prompts the game to switch your ri
 CMDs[#CMDs + 1] = {NAME = 'promptr15', DESC = 'Prompts the game to switch your rig type to R15'}
 CMDs[#CMDs + 1] = {NAME = 'wallwalk / walkonwalls', DESC = 'Walk on walls'}
 CMDs[#CMDs + 1] = {NAME = 'removeads / adblock', DESC = 'Automatically removes ad billboards'}
-CMDs[#CMDs + 1] = {NAME = 'antibang / anti-bang / ab', DESC = 'Teleports to the void and then back, killing anyone who was banging you'}
 wait()
 
 for i = 1, #CMDs do
@@ -12761,7 +12760,7 @@ end)
 
 task.spawn(function()
     while task.wait() do
-        local function lerpColor(c1, c2, t)
+        local function lerp(c1, c2, t)
             return Color3.new(
                 c1.R + (c2.R - c1.R) * t,
                 c1.G + (c2.G - c1.G) * t,
@@ -12772,12 +12771,12 @@ task.spawn(function()
         local hue = (tick() % 5) / 5
         local rainbow = Color3.fromHSV(hue, 1, 1)
 
-        local currentShade1 = lerpColor(Color3.fromRGB(36, 36, 37), rainbow, 0.5)
-        local currentShade2 = lerpColor(Color3.fromRGB(46, 46, 47), rainbow, 0.5)
-        local currentShade3 = lerpColor(Color3.fromRGB(78, 78, 79), rainbow, 0.5)
+        local currentShade1 = lerp(Color3.fromRGB(36, 36, 37), rainbow, 0.5)
+        local currentShade2 = lerp(Color3.fromRGB(46, 46, 47), rainbow, 0.5)
+        local currentShade3 = lerp(Color3.fromRGB(78, 78, 79), rainbow, 0.5)
 
 		if IntroBackground then
-			IntroBackground.BackgroundColor3 = lerpColor(Color3.fromRGB(36, 36, 37), rainbow, 0.5)
+			IntroBackground.BackgroundColor3 = lerp(Color3.fromRGB(36, 36, 37), rainbow, 0.5)
 		end
 
         updateColors(currentShade1, shade1)
