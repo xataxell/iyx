@@ -4410,6 +4410,7 @@ CMDs[#CMDs + 1] = {NAME = 'olddex / odex', DESC = 'Opens Old DEX by Moon'}
 CMDs[#CMDs + 1] = {NAME = 'remotespy / rspy', DESC = 'Opens Simple Spy V3'}
 CMDs[#CMDs + 1] = {NAME = 'hydroxide / hyx', DESC = 'Opens Hydroxide'}
 CMDs[#CMDs + 1] = {NAME = 'cobalt / cob', DESC = 'Opens Cobalt'}
+CMDs[#CMDs + 1] = {NAME = 'sigmaspy / sspy / srspy / sigspy', DESC = 'Opens Sigma Spy'}
 CMDs[#CMDs + 1] = {NAME = 'audiologger / alogger', DESC = 'Opens Edges audio logger'}
 CMDs[#CMDs + 1] = {NAME = 'serverinfo / info', DESC = 'Gives you info about the server'}
 CMDs[#CMDs + 1] = {NAME = 'jobid', DESC = 'Copies the games JobId to your clipboard'}
@@ -10378,17 +10379,18 @@ end)
 
 addcmd('hydroxide',{'hyx'},function(args, speaker)
 	notify("Loading",'Hold on a sec')
-	local scripte1 = loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/Upbolt/Hydroxide/revision/init.lua")))()
-	local scripte2 = loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/Upbolt/Hydroxide/revision/ui/main.lua")))()
-	repeat task.wait() until scripte1 and scripte2
-	notify('Loaded!', 'The Hydroxide remote spy has been loaded!')
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/Upbolt/Hydroxide/revision/init.lua")))()
+	loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/Upbolt/Hydroxide/revision/ui/main.lua")))()
 end)
 
 addcmd('cobalt',{'cob'},function(args, speaker)
 	notify("Loading",'Hold on a sec')
-	local scripte = loadstring(game:HttpGet('https://github.com/notpoiu/cobalt/releases/latest/download/Cobalt.luau'))()
-	repeat task.wait() until scripte
-	notify('Loaded!', 'The Cobalt remote spy has been loaded')
+	loadstring(game:HttpGet('https://github.com/notpoiu/cobalt/releases/latest/download/Cobalt.luau'))()
+end)
+
+addcmd('sigmaspy',{'sspy', 'srspy', 'sigspy'},function(args, speaker)
+	notify("Loading",'Hold on a sec')
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/depthso/Sigma-Spy/refs/heads/main/Main.lua"), "Sigma Spy")()
 end)
 
 addcmd('audiologger',{'alogger'},function(args, speaker)
