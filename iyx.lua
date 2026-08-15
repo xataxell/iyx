@@ -10310,7 +10310,7 @@ end)
 
 addcmd('cobalt',{'cob'},function(args, speaker)
 	notify("Loading",'Hold on a sec')
-	loadstring(game:HttpGet('https://github.com/notpoiu/cobalt/releases/latest/download/Cobalt.luau'))()
+	loadstring(game:HttpGet("https://gitlab.com/upio/cobalt/-/releases/permalink/latest/downloads/Cobalt.luau"))()
 end)
 
 addcmd('sigmaspy',{'sspy', 'srspy', 'sigspy'},function(args, speaker)
